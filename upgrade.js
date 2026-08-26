@@ -315,6 +315,30 @@
     localStorage.setItem(rev,"1");save();
   })();
 
+  (function runWujiBeforeLijiangUpgrade(){
+    var rev=KEY+"-wuji-before-lijiang-v1";
+    if(localStorage.getItem(rev)==="1")return;
+    var d=state.days.find(function(x){return x.date==="8/31"});
+    if(!d)return;
+    var replaced=[
+      "挖色午餐",
+      "挖色 → 丽江古城南门",
+      "丽江古城第一夜 · 一路慢逛"
+    ];
+    d.events=d.events.filter(function(e){return !replaced.includes(e.title)});
+    function add(event){if(!d.events.some(function(e){return e.title===event.title}))d.events.push(event)}
+    add({time:"12:00",end:"12:45",title:"挖色酒店 → 双廊古镇",kind:"交通",route:"退房后用正规包车或平台跨城车先到双廊；大件行李留在车辆后备箱并由司机全程看管",booking:"建议直接预约“挖色—双廊等候—丽江”的一口价车辆，确认高速费、等候费、行李保管与夜间到达价格",note:"双廊位于挖色北侧，也是继续去丽江的方向；不用返回大理站或绕行海西"});
+    add({time:"12:45",end:"13:50",title:"双廊午餐 · 先吃正餐",kind:"美食",route:"选择双廊南门或停车点附近、能快速出餐的白族菜馆",note:"下午主要在咖啡店拍照，先吃酸辣鱼、黄焖鸡或米线等正餐；七分饱，避免长时间只靠甜品和咖啡"});
+    add({time:"14:00",end:"18:50",title:"WUJI CAFE · 从午后拍到金色柔光",kind:"咖啡",route:"午餐后由司机送到店家确认的停车/接驳点；重点拍油画框木窗、悬崖露台、草坪与苍山洱海全景",cost:"公开体验参考：普通咖啡约¥48起，实际低消和套餐以店内为准",booking:"出发前一天通过平台确认营业、预约、低消、行李和停车接驳；若排队较长，先坐下休息，17:30后再集中拍人像",note:"公开攻略推荐傍晚18:00–19:00拍摄；本段保留近5小时，不必一直排机位。18:20开始收尾，18:50准时下山上车，不把跨城夜车拖到太晚",platform:"抖音公开推荐",link:"https://jingxuan.douyin.com/m/video/7635313266427743497"});
+    add({time:"18:50",end:"21:40",title:"双廊 WUJI → 丽江古城",kind:"交通",route:"使用中午已约好的正规跨城车，直接到丽江古城南门或客栈可停靠点",booking:"按约2.5–3小时预留；上车前确认司机状态、车牌、目的地和中途服务区，拒绝疲劳驾驶",note:"离店前买面包、水和水果作随车补给；途中不催司机，雨夜或拥堵时允许晚到，安全优先"});
+    add({time:"22:10",end:"23:10",title:"丽江古城第一夜 · 热食＋短走",kind:"逛吃",route:"只在客栈附近吃米线、馄饨或腊排骨小锅，再走一小段灯景街巷",note:"不再从南门完整走到大水车；如果车程延误或疲惫，直接外卖/客栈附近吃饭后睡觉，完整古城留给9月3日上午"});
+    var stay=d.events.find(function(e){return e.kind==="住宿"});
+    if(stay){stay.time="21:40";if(String(stay.note||"").indexOf("晚到")<0)stay.note=(stay.note?stay.note+"；":"")+"预计21:40后晚到，提前联系客栈确认古城限行后的最近下车点和接行李方式"}
+    dayGuides["8/31"]={title:"挖色退房 → 双廊 WUJI → 晚到丽江",tips:["双廊在挖色北侧，退房后先去WUJI再继续去丽江，比回大理站顺路","WUJI留14:00–18:50，重点拍18:00后的金色柔光；18:50必须开始跨城","预计21:40左右到丽江，第一晚只吃热食和短走，完整古城留到9月3日上午"],source:"https://jingxuan.douyin.com/m/video/7635313266427743497"};
+    d.events.sort(function(a,b){return String(a.time).localeCompare(String(b.time))});
+    localStorage.setItem(rev,"1");save();
+  })();
+
   function renderSavedItem(item){
     var p=item.platform||platformOf(item);
     var cl=p==="美团"?"mt":p==="小红书"?"xhs":p==="抖音"?"dy":"";
