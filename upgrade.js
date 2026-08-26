@@ -281,6 +281,40 @@
     localStorage.setItem(rev,"1");save();
   })();
 
+  (function runDaliEastArrivalPlanUpgrade(){
+    var rev=KEY+"-dali-qingshanjian-yunxiang-v1";
+    if(localStorage.getItem(rev)==="1")return;
+    var d=state.days.find(function(x){return x.date==="8/30"});
+    if(!d)return;
+    var replaced=[
+      "挖色酒店 → 双廊古镇",
+      "双廊古镇 · 玉几岛沿海慢拍",
+      "双廊古镇 · 临水街巷慢拍",
+      "WUJI CAFE · 270°洱海落日拍照",
+      "双廊早晚餐＋洱海日落",
+      "双廊晚餐 · 经济半小食",
+      "双廊 → 挖色酒店"
+    ];
+    d.events=d.events.filter(function(e){return !replaced.includes(e.title)});
+    function add(event){if(!d.events.some(function(e){return e.title===event.title}))d.events.push(event)}
+    add({time:"14:00",end:"15:15",title:"挖色酒店 → 清山见",kind:"交通",route:"建议预约同一辆正规包车全程等候；导航务必使用高德搜索“清山见”，上车后让司机与店家再次确认落点",booking:"清山见公开信息较少，出发前在小红书原帖确认当天营业与高德定位；包车先确认8小时价格、等候费和晚间返程",note:"百度地图上的同名定位有用户反馈不准；东岸道路和雨天路况会影响车程，15:15前后到达即可，不为赶时间让司机超速",platform:"小红书",link:"https://xhslink.cn/o/5NWWc7fJaux"});
+    add({time:"15:15",end:"16:50",title:"清山见 · 花园海景慢拍",kind:"咖啡",route:"先拍临海花园、花墙与露台，再坐下喝饮品休息",cost:"作者回复参考：约¥48/人起，一人一消",booking:"营业、低消、可否换装及准确入口以当天店家回复为准",note:"原帖作者说一小时内能拍完；给你留95分钟，浅色长裙或低饱和穿搭更衬花园和洱海。气泡水被作者评价一般，可现场换咖啡或其他饮品",platform:"小红书",link:"https://xhslink.cn/o/5NWWc7fJaux"});
+    add({time:"16:50",end:"17:50",title:"清山见 → 云想山",kind:"交通",route:"继续使用原包车，导航“大理云想山风景区”；根据实时路况走海东—满江方向",note:"这一小时是估算缓冲；若17:50仍未到，直接缩短云想山免费区拍摄，不再增加文笔村咖啡"});
+    add({time:"17:50",end:"19:40",title:"云想山 · 日落到蓝调",kind:"景点",route:"免费观景区以大草坪、S弯公路和俯瞰洱海机位为主；收费娱乐项目不设为必玩",booking:"景区公开信息显示全年全天开放，部分娱乐项目另有售票与停止入场时间；若想玩路极，出发前电话 19987227361 核对",note:"8月底建议把19:00前后的柔光、日落和随后蓝调作为主拍段；山顶风大，随身带薄外套。雨雾很重时不等夜景，提前下山吃饭",platform:"携程攻略",link:"https://you.ctrip.com/sight/dalicity1445616/145073729.html"});
+    add({time:"19:40",end:"20:25",title:"云想山 → 文笔村晚餐",kind:"交通",route:"下山后沿返挖色方向去文笔村；上车即电话确认餐厅仍接单",note:"文笔村本次不再单独逛彩虹路和咖啡店，只作为返程晚餐落脚点；若山上延误或餐厅停止接单，改在海东/酒店附近吃，不硬赶"});
+    add({time:"20:25",end:"21:20",title:"岛七土菜馆 · 白族晚餐",kind:"美食",route:"文笔村蜜悦海景酒店旁约200米",cost:"公开页面参考人均约¥82",booking:"公开营业时间参考10:00–21:30；务必提前电话确认最后点单时间并预留座位",note:"两人可点酸辣鱼或黄焖鸡二选一，再配水性杨花/包浆豆腐；野生菌必须由正规餐厅充分煮熟，不饮酒、不自行尝试不认识的菌子",platform:"携程美食",link:"https://gs.ctrip.com/html5/you/foods/fooddetail/1445616/78230688.html"});
+    add({time:"21:20",end:"22:10",title:"文笔村 → 挖色酒店",kind:"交通",route:"继续使用已预约包车返回挖色酒店，实际上车点和时间以餐厅为准",note:"预计22点左右回房，已经是到达日的上限；如果两人明显疲惫，优先删掉云想山，清山见后直接吃饭回酒店"});
+    dayGuides["8/30"]={title:"清山见 → 云想山 · 两个出片点就够了",tips:["清山见用高德导航，先确认准确入口；原帖参考一人一消约48元","文笔村值得看彩虹路与夕地咖啡，但和清山见同属海东海景拍照，本次不再重复占用下午","云想山拍日落和蓝调，返程在文笔村吃岛七；整段建议同一辆正规包车等候"],source:"https://xhslink.cn/o/5NWWc7fJaux"};
+    [
+      {id:"wish-xhs-qingshanjian",platform:"小红书",title:"清山见 · 海东花园海景拍照",link:"https://xhslink.cn/o/5NWWc7fJaux",note:"作者公开信息：高德定位更可靠，一人一消约48元；营业与入口出发前再确认。已安排8月30日15:15。"},
+      {id:"wish-dali-yunxiang",platform:"攻略",title:"云想山 · 大草坪日落与蓝调",link:"https://you.ctrip.com/sight/dalicity1445616/145073729.html",note:"已安排8月30日17:50；免费观景为主，收费娱乐项目出发前核对。山顶风大带薄外套。"},
+      {id:"wish-wenbi-xidi",platform:"攻略",title:"文笔村 · 夕地咖啡与彩虹路（备选）",link:"https://dali.yunnan.cn/system/2025/08/04/033571496.shtml",note:"文笔村本身值得，但与清山见同为海东海景出片体验。这次先不硬塞，若以后替换清山见，可选夕地咖啡＋彩虹路。"},
+      {id:"wish-ctrip-daoqi",platform:"其他",title:"岛七土菜馆 · 文笔村白族晚餐",link:"https://gs.ctrip.com/html5/you/foods/fooddetail/1445616/78230688.html",note:"公开参考10:00–21:30、人均约82元；已安排云想山后顺路晚餐，必须提前确认最后点单时间。"}
+    ].forEach(function(item){if(!savedItems.some(function(x){return x.id===item.id||x.link===item.link}))savedItems.push(item)});
+    d.events.sort(function(a,b){return String(a.time).localeCompare(String(b.time))});
+    localStorage.setItem(rev,"1");save();
+  })();
+
   function renderSavedItem(item){
     var p=item.platform||platformOf(item);
     var cl=p==="美团"?"mt":p==="小红书"?"xhs":p==="抖音"?"dy":"";

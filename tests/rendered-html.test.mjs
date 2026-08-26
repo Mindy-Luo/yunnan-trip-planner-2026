@@ -81,6 +81,10 @@ test("ships the urgent local-first upgrades without cloud dependencies", async (
   assert.match(upgradeJs, /云杉坪小索道 · 提前候检/);
   assert.match(upgradeJs, /蓝月谷 · 正午通透水色拍照/);
   assert.match(upgradeJs, /冰川公园大索道 · 提前到检票区/);
+  assert.match(upgradeJs, /清山见 · 花园海景慢拍/);
+  assert.match(upgradeJs, /云想山 · 日落到蓝调/);
+  assert.match(upgradeJs, /岛七土菜馆 · 白族晚餐/);
+  assert.match(upgradeJs, /文笔村 · 夕地咖啡与彩虹路（备选）/);
   assert.match(upgradeJs, /普达措国家公园 · 留足一整段/);
   assert.match(upgradeJs, /松赞林寺 · 上午慢游/);
   assert.match(upgradeJs, /梅里日照金山 · 只作为整日替换方案/);
