@@ -389,6 +389,31 @@
     localStorage.setItem(rev,"1");save();
   })();
 
+  (function runUseDafeiDinnerUpgrade(){
+    var rev=KEY+"-use-baizu-dafei-wase-dinner-v1";
+    if(localStorage.getItem(rev)==="1")return;
+    var d=state.days.find(function(x){return x.date==="8/30"});
+    if(!d)return;
+    var removed=[
+      "云想山 → 海东茄子烧烤（锦生店）",
+      "海东茄子烧烤（锦生店）· 白族烧烤",
+      "满江 → 挖色酒店"
+    ];
+    d.events=d.events.filter(function(e){return !removed.includes(e.title)});
+    savedItems=savedItems.filter(function(item){
+      return item.id!=="wish-amap-haidongqiezi-jinsheng"&&String(item.title||"").indexOf("海东茄子烧烤（锦生店）")<0;
+    });
+    function add(event){if(!d.events.some(function(e){return e.title===event.title}))d.events.push(event)}
+    add({time:"19:40",end:"20:55",title:"云想山 → 挖色镇",kind:"交通",route:"继续使用原包车，导航“白族风味馆（大飞店）”，核对地址为大理挖色街432号、电话18314288916",booking:"19:30左右离开云想山前致电确认仍接晚餐、是否需要预留桌位；让司机直接送到店门口或最近安全下车点",note:"直接回挖色比先在满江吃饭再赶夜路更松弛；约75分钟为保守估算，按当晚雨天、环海东路车流顺延",platform:"美团",link:"http://dpurl.cn/b7RfodHz"});
+    add({time:"20:55",end:"22:05",title:"白族风味馆（大飞店）· 挖色晚餐",kind:"美食",route:"大理挖色街432号｜电话：18314288916",booking:"营业时间未从公开页面可靠核实，务必在云想山下山前电话确认最后接单时间；若当天较早收档，就提前结束蓝调拍摄",note:"按你指定的门店安排。可到店询问当日鲜鱼、白族家常菜和时蔬；菌类只吃店家确认并彻底烹熟的，不自行要求缩短烹饪时间",platform:"美团",link:"http://dpurl.cn/b7RfodHz"});
+    add({time:"22:05",end:"22:15",title:"大飞店 → 挖色酒店",kind:"交通",route:"饭后由原包车或店家协助叫正规车辆返回酒店",note:"同在挖色镇，实际时间以酒店位置为准；到店后即可结束当天行程"});
+    dayGuides["8/30"]={title:"清山见 → 云想山 → 挖色白族晚餐",tips:["清山见用高德导航并提前确认准确入口；原帖参考一人一消约48元","云想山拍完日落与蓝调后直接回挖色，不再绕去文笔村或满江吃饭","晚饭认准白族风味馆大飞店：挖色街432号、18314288916；下山前务必电话确认仍接单"],source:"http://dpurl.cn/b7RfodHz"};
+    var replacement={id:"wish-meituan-baizu-dafei",platform:"美团",title:"白族风味馆（大飞店）· 挖色晚餐",link:"http://dpurl.cn/b7RfodHz",note:"你指定的晚餐店：大理挖色街432号，电话18314288916。已安排8月30日20:55；云想山下山前电话确认最后接单时间。"};
+    if(!savedItems.some(function(x){return x.id===replacement.id||x.link===replacement.link}))savedItems.push(replacement);
+    d.events.sort(function(a,b){return String(a.time).localeCompare(String(b.time))});
+    localStorage.setItem(rev,"1");save();
+  })();
+
   function renderSavedItem(item){
     var p=item.platform||platformOf(item);
     var cl=p==="美团"?"mt":p==="小红书"?"xhs":p==="抖音"?"dy":"";
