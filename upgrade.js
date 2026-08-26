@@ -240,6 +240,47 @@
     localStorage.setItem(rev,"1");save();
   })();
 
+  (function runTicketedYulongPlanUpgrade(){
+    var rev=KEY+"-ticketed-yulong-swiss-garden-v1";
+    if(localStorage.getItem(rev)==="1")return;
+    var d=state.days.find(function(x){return x.date==="9/2"});
+    if(!d)return;
+    var replaced=[
+      "丽江客栈 → 甘海子日照金山观景区",
+      "甘海子 · 等日照金山",
+      "早餐、入园核验与换乘观光车",
+      "冰川公园大索道与雪山栈道",
+      "游客中心午餐与休息",
+      "蓝月谷",
+      "玉龙雪山 → 丽江客栈"
+    ];
+    d.events=d.events.filter(function(e){return !replaced.includes(e.title)});
+    function add(event){if(!d.events.some(function(e){return e.title===event.title}))d.events.push(event)}
+    var ticket=d.events.find(function(e){return e.title==="玉龙雪山门票与索道预约"});
+    if(ticket){
+      ticket.title="玉龙雪山门票与两段索道 · 已购";
+      ticket.booking="已购：云杉坪小索道 08:00–08:30；冰川公园大索道 14:00–14:30";
+      ticket.note="携带身份证，严格按票面检票地点与时段候乘；迟到可能被调整至16:30后集中候乘";
+    }
+    add({time:"05:00",end:"06:15",title:"丽江古城 → 甘海子瑞士风情园",kind:"交通",route:"提前约好能进入景区核心区域的正规包车，目的地直接写“甘海子瑞士风情园”",booking:"前一晚向司机确认早间通行、进山核验、停车和返程价格；如遇动态分流，以景区现场引导为准",note:"市区至甘海子高峰参考约80分钟，05:00出发为进山核验和早间车流留足缓冲",platform:"玉龙雪山景区公告",link:"https://www.lijiang.cn/news/travel/article/167852.html"});
+    add({time:"06:15",end:"07:15",title:"瑞士风情园 · 等日照金山",kind:"景点",route:"选择面向玉龙十三峰、无遮挡且不影响通行的安全位置",booking:"日出模型参考06:58；若峰顶和东方天空同时出现晴窗，预计金色窗口约06:58–07:10",note:"8月26日多模型对06:00–08:00总云量预报接近99%–100%，当前成功率偏低；8月31日和9月1日晚在天气页再次刷新，现场以云层变化为准"});
+    add({time:"07:15",end:"07:45",title:"步行至雪川游客港 · 游客中心早餐",kind:"美食",route:"瑞士风情园 → 甘海子游客中心/雪厨附近，按现场标识前往云杉坪C检票口",note:"只吃米线、包子、热饮等快餐；07:45前结束，不把早餐拖到检票时间"});
+    add({time:"07:45",end:"08:00",title:"云杉坪小索道 · 提前候检",kind:"交通",route:"到票面指定检票口等候，身份证和票码提前准备好",booking:"票面时段 08:00–08:30；检票点和流线以“丽江旅游集团”小程序及现场标识为准"});
+    add({time:"08:00",end:"10:20",title:"云杉坪小索道＋草甸慢游",kind:"景点",route:"观光车 → 云杉坪索道下站 → 索道上山 → 草甸精华段 → 原路下山",note:"10:20是硬截止；以拍雪山、草甸和森林为主，不走完整大环线，为蓝月谷与大索道保留体力"});
+    add({time:"10:20",end:"10:50",title:"云杉坪 → 蓝月谷",kind:"交通",route:"按现场引导乘景区环保车前往蓝月谷；客流大时预留排队时间"});
+    add({time:"10:50",end:"12:25",title:"蓝月谷 · 正午通透水色拍照",kind:"景点",route:"优先玉液湖 → 镜潭湖 → 蓝月湖，按返程上车点调整顺序",cost:"蓝月谷电瓶车当前参考：单段¥10/人、全段¥40/人",booking:"时间紧建议使用分段或全程电瓶车，12:25必须开始撤离",note:"11:30–12:20是主拍窗口；正午人物用侧身、背影或侧逆光，避免面向太阳产生硬阴影",platform:"2026年景区票务通告",link:"https://www.yn.xinhuanet.com/20260702/e8f8d1a27e2845b4bf54cfc5ef8f5d36/c.html"});
+    add({time:"12:25",end:"12:50",title:"蓝月谷 → 雪川游客港",kind:"交通",route:"立即前往返程候车点，乘环保车返回雪川游客港",note:"12:00–15:00为蓝月谷方向客流集中时段，宁可提前撤离，不占用大索道缓冲"});
+    add({time:"12:50",end:"13:20",title:"游客中心简餐",kind:"美食",route:"雪厨或游客中心选择出餐快的米线、面食、包子与热饮",note:"提前决定餐品，30分钟内结束；可随身带巧克力和能量食品在大索道后补充"});
+    add({time:"13:20",end:"14:00",title:"冰川公园大索道 · 提前到检票区",kind:"交通",route:"按票面和当天公告前往冰川公园索道指定检票口",booking:"票面时段 14:00–14:30；13:20先到区域内等待，但不得早于官方允许时段强行检票",note:"下午天气和索道运行可能变化，持续关注景区短信、广播及官方动态"});
+    add({time:"14:00",end:"16:30",title:"冰川公园大索道＋雪山栈道",kind:"景点",route:"环保车 → 大索道下站 → 索道至4506米 → 按身体状况决定是否继续步行",note:"上午已活动较多，下午慢走、不奔跑；出现持续头痛、胸闷、恶心或步态不稳立即停止上行并下撤"});
+    add({time:"16:30",end:"17:05",title:"冰川公园 → 甘海子游客中心",kind:"交通",route:"索道下山后按现场标识乘环保车返回游客中心",note:"与早上包车司机提前约好会合位置，避免散场后临时找车"});
+    add({time:"17:05",end:"18:25",title:"甘海子游客中心 → 丽江古城",kind:"交通",route:"使用早上约好的正规包车返回丽江古城南门或客栈附近",note:"按晚高峰预留约80分钟；若索道延误，直接顺延，不在山脚增加项目"});
+    add({time:"18:30",end:"20:00",title:"丽江古城晚餐＋回客栈休息",kind:"美食",route:"古城南门或客栈附近吃热食，饭后不再安排远距离活动",note:"雪山日消耗较大，少酒、多补水、早点休息"});
+    dayGuides["9/2"]={title:"瑞士风情园日出 → 两段索道 → 蓝月谷",tips:["日出模型为06:58，可见时金色窗口预估06:58–07:10；当前多模型云量极高，出发前两晚必须刷新","08:00–08:30云杉坪、14:00–14:30冰川公园均已购票，所有移动围绕票面时段倒推","蓝月谷安排10:50–12:25，正午水色是主角；12:25无论拍摄进度如何都要撤离"],source:"https://www.yn.xinhuanet.com/20260718/f2d1560d5043462c9c5967496da38808/c.html"};
+    d.events.sort(function(a,b){return String(a.time).localeCompare(String(b.time))});
+    localStorage.setItem(rev,"1");save();
+  })();
+
   function renderSavedItem(item){
     var p=item.platform||platformOf(item);
     var cl=p==="美团"?"mt":p==="小红书"?"xhs":p==="抖音"?"dy":"";
