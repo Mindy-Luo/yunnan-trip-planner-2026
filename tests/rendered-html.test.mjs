@@ -97,6 +97,8 @@ test("ships the urgent local-first upgrades without cloud dependencies", async (
   assert.match(upgradeJs, /白族风味馆（大飞店）· 挖色晚餐/);
   assert.match(upgradeJs, /大理挖色街432号/);
   assert.match(upgradeJs, /use-baizu-dafei-wase-dinner-v1/);
+  assert.match(upgradeJs, /大叔写真咖啡旅拍 · 二楼雪山窗景/);
+  assert.match(upgradeJs, /add-shuhe-uncle-photo-cafe-v1/);
   assert.match(upgradeJs, /普达措国家公园 · 留足一整段/);
   assert.match(upgradeJs, /松赞林寺 · 上午慢游/);
   assert.match(upgradeJs, /梅里日照金山 · 只作为整日替换方案/);

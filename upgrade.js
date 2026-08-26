@@ -414,6 +414,24 @@
     localStorage.setItem(rev,"1");save();
   })();
 
+  (function runAddShuheUncleCafeUpgrade(){
+    var rev=KEY+"-add-shuhe-uncle-photo-cafe-v1";
+    if(localStorage.getItem(rev)==="1")return;
+    var d=state.days.find(function(x){return x.date==="9/1"});
+    if(!d)return;
+    d.events=d.events.filter(function(e){
+      return e.title!=="束河古镇 · 青龙桥与九鼎龙潭"&&e.title!=="大叔写真咖啡旅拍 · 二楼雪山窗景";
+    });
+    function add(event){if(!d.events.some(function(e){return e.title===event.title}))d.events.push(event)}
+    add({time:"09:30",end:"10:20",title:"束河古镇 · 青龙桥与九鼎龙潭",kind:"景点",route:"束河北门/停车点 → 青龙桥 → 九鼎龙潭 → 大叔咖啡",note:"束河本次只走最顺路的精华段，不绕完整古镇；10:20左右到咖啡店，把充足时间留给你指定的窗景拍照"});
+    add({time:"10:20",end:"11:30",title:"大叔写真咖啡旅拍 · 二楼雪山窗景",kind:"咖啡",route:"束河古镇内导航“大叔写真咖啡旅拍”；重点拍二楼推窗雪山、花园与店内摄影陈设",cost:"公开体验参考约¥30–38/人，实际低消和拍摄服务以店内为准",booking:"未查到可靠的官方营业时间和电话，建议前一天在地图或社交平台确认9月1日上午营业；如有专业拍摄需求需另问价格",note:"先点饮品再拍，避开影响其他客人；阴天就以花园和室内氛围为主。11:20开始收尾，11:30离店，不能挤压缓山私厨订位",platform:"抖音",link:"https://jingxuan.douyin.com/m/video/7610371138887109928"});
+    dayGuides["9/1"]={title:"束河大叔咖啡 → 白沙手作治愈日",tips:["上午束河只走青龙桥、九鼎龙潭，再去你指定的大叔写真咖啡旅拍拍二楼雪山窗景","11:30离开束河，12:15到缓山私厨；14:30把完整下午留给白沙植物拓染","大叔咖啡营业信息出发前一天确认；若临时未开，不耽误后续白沙主线"],source:"https://jingxuan.douyin.com/m/video/7610371138887109928"};
+    var item={id:"wish-dy-shuhe-uncle-cafe",platform:"抖音",title:"大叔写真咖啡旅拍 · 束河二楼雪山窗景",link:"https://jingxuan.douyin.com/m/video/7610371138887109928",note:"已安排9月1日10:20–11:30。公开体验参考约30–38元/人；营业时间、低消和拍摄服务请提前确认。"};
+    if(!savedItems.some(function(x){return x.id===item.id||x.link===item.link}))savedItems.push(item);
+    d.events.sort(function(a,b){return String(a.time).localeCompare(String(b.time))});
+    localStorage.setItem(rev,"1");save();
+  })();
+
   function renderSavedItem(item){
     var p=item.platform||platformOf(item);
     var cl=p==="美团"?"mt":p==="小红书"?"xhs":p==="抖音"?"dy":"";
