@@ -88,6 +88,9 @@ test("ships the urgent local-first upgrades without cloud dependencies", async (
   assert.match(upgradeJs, /WUJI CAFE · 从午后拍到金色柔光/);
   assert.match(upgradeJs, /双廊 WUJI → 丽江古城/);
   assert.match(upgradeJs, /丽江古城第一夜 · 热食＋短走/);
+  assert.match(upgradeJs, /WUJI CAFE · 午后悬崖海景慢拍/);
+  assert.match(upgradeJs, /丽江古城第一夜 · 晚餐＋灯景慢逛/);
+  assert.match(upgradeJs, /目标19:00到客栈/);
   assert.match(upgradeJs, /普达措国家公园 · 留足一整段/);
   assert.match(upgradeJs, /松赞林寺 · 上午慢游/);
   assert.match(upgradeJs, /梅里日照金山 · 只作为整日替换方案/);

@@ -339,6 +339,31 @@
     localStorage.setItem(rev,"1");save();
   })();
 
+  (function runEarlyLijiangCheckinUpgrade(){
+    var rev=KEY+"-wuji-lijiang-1900-v1";
+    if(localStorage.getItem(rev)==="1")return;
+    var d=state.days.find(function(x){return x.date==="8/31"});
+    if(!d)return;
+    function find(title){return d.events.find(function(e){return e.title===title})}
+    function set(title,time,end){var e=find(title);if(e){e.time=time;e.end=end}return e}
+    set("挖色轻环线 · 鹿卧山安全观景位 → 挖色码头 → 小普陀","08:45","10:05");
+    var packing=set("回酒店整理与退房","10:05","11:00");
+    if(packing)packing.note="11:00前退房；提前约好11:00出发的正规跨城包车，大件行李全程留在车辆后备箱";
+    set("挖色酒店 → 双廊古镇","11:00","11:45");
+    set("双廊午餐 · 先吃正餐","11:45","12:35");
+    var wuji=set("WUJI CAFE · 从午后拍到金色柔光","12:45","16:00");
+    if(wuji){wuji.title="WUJI CAFE · 午后悬崖海景慢拍";wuji.note="19:00到丽江是硬目标，因此不等WUJI日落；12:45–16:00足够拍油画框木窗、悬崖露台、草坪和全景。15:40开始收尾，16:00准时上车"}
+    var drive=set("双廊 WUJI → 丽江古城","16:00","19:00");
+    if(drive){drive.booking="按约2.5–3小时预留，目标19:00到客栈；上车前确认司机状态、车牌、目的地与古城最近下车点";drive.note="16:00是硬出发时间。雨天或拥堵时不催司机，允许小幅晚到；安全优先"}
+    var firstNight=set("丽江古城第一夜 · 热食＋短走","19:30","22:00");
+    if(firstNight){firstNight.title="丽江古城第一夜 · 晚餐＋灯景慢逛";firstNight.route="客栈 → 古城南门 → 七一街 → 木府外街巷；是否继续去四方街按体力决定";firstNight.note="19:00左右先入住，19:30吃热食后再逛；累了随时回客栈，不追求第一晚走完整个古城"}
+    var stay=d.events.find(function(e){return e.kind==="住宿"});
+    if(stay){stay.time="19:00";stay.note=String(stay.note||"").replace(/预计21:40后晚到[^；]*；?/g,"");if(String(stay.note||"").indexOf("19:00")<0)stay.note=(stay.note?stay.note+"；":"")+"目标19:00左右办理入住，提前确认古城限行后的最近下车点和接行李方式"}
+    dayGuides["8/31"]={title:"WUJI午后慢拍 → 19点到丽江",tips:["上午挖色轻环线缩短到10:05，11:00退房出发去双廊","WUJI安排12:45–16:00，保留3小时15分拍照，但不再等待落日","16:00准时跨城，目标19:00入住；19:30后正常吃晚饭和逛古城灯景"],source:"https://jingxuan.douyin.com/m/video/7635313266427743497"};
+    d.events.sort(function(a,b){return String(a.time).localeCompare(String(b.time))});
+    localStorage.setItem(rev,"1");save();
+  })();
+
   function renderSavedItem(item){
     var p=item.platform||platformOf(item);
     var cl=p==="美团"?"mt":p==="小红书"?"xhs":p==="抖音"?"dy":"";
