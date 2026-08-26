@@ -364,6 +364,31 @@
     localStorage.setItem(rev,"1");save();
   })();
 
+  (function runReplaceDaoqiDinnerUpgrade(){
+    var rev=KEY+"-replace-daoqi-with-haidongqiezi-v1";
+    if(localStorage.getItem(rev)==="1")return;
+    var d=state.days.find(function(x){return x.date==="8/30"});
+    if(!d)return;
+    var removed=[
+      "云想山 → 文笔村晚餐",
+      "岛七土菜馆 · 白族晚餐",
+      "文笔村 → 挖色酒店"
+    ];
+    d.events=d.events.filter(function(e){return !removed.includes(e.title)});
+    savedItems=savedItems.filter(function(item){
+      return item.id!=="wish-ctrip-daoqi"&&String(item.title||"").indexOf("岛七土菜馆")<0;
+    });
+    function add(event){if(!d.events.some(function(e){return e.title===event.title}))d.events.push(event)}
+    add({time:"19:40",end:"20:00",title:"云想山 → 海东茄子烧烤（锦生店）",kind:"交通",route:"继续使用原包车下山，导航务必选择“海东茄子烧烤（锦生店/颐苑小区店）”，核对地址为颐苑路锦生美食广场1楼5-1-1号",booking:"上车后可先致电 18887273909 或 15528048921 确认等位；不要误选古城店、北区店或滇纺店",note:"餐厅与云想山同在满江/开发区一带，比绕去文笔村吃饭更顺；20分钟为估算，按当天路况顺延"});
+    add({time:"20:00",end:"21:15",title:"海东茄子烧烤（锦生店）· 白族烧烤",kind:"美食",route:"颐苑路锦生美食广场1楼5-1-1号；平台也可能显示“颐苑小区店”",cost:"公开页面参考人均约¥59–60",booking:"公开营业时间参考16:30–次日02:30；热门时段可能等位，建议下山前电话确认",note:"两人建议点招牌海东茄子、包浆豆腐、烤肉，再从炸乳扇/白族糯米血肠中选一份；野生菌焖饭务必确认菌类已完全熟透。近期高德4.7分，携程有2026年近期评价",platform:"携程美食",link:"https://you.ctrip.com/yougourmet/restdetail/daliprefecture31/133792248.html"});
+    add({time:"21:15",end:"22:25",title:"满江 → 挖色酒店",kind:"交通",route:"饭后继续乘原包车，经海东环线返回挖色酒店",note:"按约60–70分钟预留；雨夜不催司机。若云想山延误，晚餐时长可缩短，但不必担心餐厅21:30停止营业"});
+    dayGuides["8/30"]={title:"清山见 → 云想山 → 满江白族烧烤",tips:["清山见用高德导航并提前确认准确入口；原帖参考一人一消约48元","云想山拍日落和蓝调后直接在满江吃饭，不再绕去文笔村，也不再使用岛七","晚饭认准海东茄子烧烤锦生店：颐苑路锦生美食广场1楼5-1-1号；饭后约22:25回到挖色"],source:"https://ranks.amap.com/recommend/bbq_restaurant-Dali-family"};
+    var replacement={id:"wish-amap-haidongqiezi-jinsheng",platform:"攻略",title:"海东茄子烧烤（锦生店）· 云想山后顺路晚餐",link:"https://you.ctrip.com/yougourmet/restdetail/daliprefecture31/133792248.html",note:"认准颐苑路锦生美食广场1楼5-1-1号，部分平台显示颐苑小区店；公开参考16:30–次日02:30、人均约59–60元。已安排8月30日20:00。"};
+    if(!savedItems.some(function(x){return x.id===replacement.id||x.link===replacement.link}))savedItems.push(replacement);
+    d.events.sort(function(a,b){return String(a.time).localeCompare(String(b.time))});
+    localStorage.setItem(rev,"1");save();
+  })();
+
   function renderSavedItem(item){
     var p=item.platform||platformOf(item);
     var cl=p==="美团"?"mt":p==="小红书"?"xhs":p==="抖音"?"dy":"";
