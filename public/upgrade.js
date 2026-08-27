@@ -432,6 +432,63 @@
     localStorage.setItem(rev,"1");save();
   })();
 
+  (function runConfirmedShangriLaPlanUpgrade(){
+    var rev=KEY+"-shangri-meili-makeup-napahai-v1";
+    if(localStorage.getItem(rev)==="1")return;
+    function day(date){return state.days.find(function(x){return x.date===date})}
+    function replace(date,titles){var d=day(date);if(d)d.events=d.events.filter(function(e){return !titles.includes(e.title)})}
+    function add(date,event){var d=day(date);if(d&&!d.events.some(function(e){return e.title===event.title}))d.events.push(event)}
+
+    replace("9/4",[
+      "早餐与高原状态检查","独克宗民宿 → 松赞林寺","松赞林寺 · 上午慢游","松赞林寺附近午餐",
+      "纳帕海半环湖 · 草原与村落慢拍","回民宿休息","独克宗古城 · 晚餐与龟山夜景"
+    ]);
+    add("9/4",{time:"08:10",end:"08:40",title:"早餐＋普达措出发准备",kind:"美食",note:"带雨衣、防滑鞋、保温杯和能量食品；第一晚如有明显高反，缩短景区步道"});
+    add("9/4",{time:"08:40",end:"09:20",title:"独克宗 → 普达措国家公园",kind:"交通",route:"优先提前确认景区直通车；若想下午直连纳帕海，建议约正规包车并谈好全日等候价",platform:"普达措官网",link:"https://www.pdcuo.cn/"});
+    add("9/4",{time:"09:20",end:"15:00",title:"普达措国家公园 · 属都湖慢游",kind:"景点",route:"景区车＋当天开放步道为主，不追求每段都走满",cost:"官网公开参考门票＋游览车¥138/人",booking:"提前购票并确认当天开放区域；15:00开始返程，不把纳帕海两家店挤没",note:"海拔较高，慢走、不奔跑；午餐以景区简餐和自带补给为主",platform:"普达措官网",link:"https://www.pdcuo.cn/"});
+    add("9/4",{time:"15:00",end:"16:00",title:"普达措 → 牧卡庄园",kind:"交通",route:"使用提前约好的正规车辆直接穿过城区去纳帕海夏学组，不先回民宿",note:"牧卡咖啡18:00结束营业，返程延误时先联系店家；若16:40仍未到，只保留野鹿子，不催司机"});
+    add("9/4",{time:"16:00",end:"17:00",title:"牧卡 · 草原庄园与小动物",kind:"咖啡",route:"建塘镇解放村委会夏学组46号",booking:"公开咖啡厅营业参考09:00–18:00；非住客能否进入牧场、是否需预约及低消请提前确认",note:"这一站以草原、小动物和短暂休息为主，不换妆、不参加耗时项目",platform:"携程",link:"https://hotels.ctrip.com/hotels/130840896.html"});
+    add("9/4",{time:"17:10",end:"18:40",title:"野鹿子 · 纳帕海落日咖啡",kind:"咖啡",route:"解放村夏学组30号心宿穹庐四野酒店内；与牧卡同在夏学组，短途串联",booking:"公开营业参考10:00–19:00；出发前确认当天营业、入场和低消",note:"把主要草原拍摄放在这里，18:30开始收尾；下雨或低云时在室内落地窗休息，不骑电动车环湖",platform:"携程攻略",link:"https://sg.trip.com/moments/poi-city-153462171/"});
+    add("9/4",{time:"18:40",end:"19:20",title:"野鹿子 → 独克宗古城",kind:"交通",route:"乘原车辆返回民宿或古城北门",note:"晚饭后只短走古城；第二天02:30集合，21:30前必须回房休息"});
+    add("9/4",{time:"19:30",end:"21:00",title:"独克宗晚餐＋梅里小团准备",kind:"其他",note:"吃热食、不饮酒；洗澡、充电，准备身份证、保暖层、水和晕车药。向司导确认02:30集合点、道路状态和最晚返程时间"});
+
+    replace("9/5",[
+      "早餐与普达措出发准备","香格里拉城区 → 普达措","普达措国家公园 · 属都湖慢走","普达措 → 香格里拉城区",
+      "民宿休息 · 留白","独克宗晚餐与自由散步","梅里天气闸门 · 二选一","天气二选一｜A飞来寺 / B松赞林寺＋纳帕海","A线飞来寺入住 / B线古城晚餐"
+    ]);
+    add("9/5",{time:"02:10",end:"02:30",title:"起床集合 · 梅里一日小团",kind:"提醒",route:"按领队前一晚通知前往独克宗东门、北门或古城周边接送点",booking:"产品页写明前一天22:00前通知；核对车牌、司导、座位与紧急联系人",note:"只吃少量面包或饼干，晕车药按说明提前使用；全程系安全带，不催司机赶路",platform:"去哪儿",link:"https://d.qunar.com/x9t1HY"});
+    add("9/5",{time:"02:30",end:"14:45",title:"梅里雪山一日小团 · 雾浓顶/飞来寺",kind:"景点",route:"独克宗 → 雾浓顶或飞来寺日出 → 白马雪山 → 金沙江大拐弯 → 纳帕海普通观景台 → 独克宗",cost:"产品页当前¥134起，最终价格以所选日期和套餐为准",booking:"8人内小团；下单前确认9月5日道路是否通行，以及飞来寺受阻时是退款还是替换景点",note:"页面标称约14:45回古城，但雨季、G214施工与单边放行可能延误；团内纳帕海只停约30分钟，不能替代9月4日牧卡和野鹿子",platform:"去哪儿",link:"https://d.qunar.com/x9t1HY"});
+    add("9/5",{time:"14:45",end:"15:30",title:"回民宿＋热食补给",kind:"其他",note:"先吃容易消化的热食、补水和洗漱；若返程延误，后续补觉整体顺延"});
+    add("9/5",{time:"15:30",end:"18:30",title:"强制补觉 · 不加景点",kind:"休息",note:"拉好窗帘、手机静音，至少睡2小时；梅里当天不安排妆造、松赞林寺或纳帕海环湖"});
+    add("9/5",{time:"19:00",end:"20:30",title:"独克宗晚餐＋短走",kind:"逛吃",route:"只在民宿附近吃牦牛肉汤锅、米线或家常菜",note:"有精神再走月光广场；20:30左右回房，为次日早妆和高铁留体力"});
+
+    replace("9/6",[
+      "睡到自然醒 · 古城早餐","独克宗白天补拍＋咖啡","午餐、取行李与退房",
+      "A线日照金山＋返程 / B线香格里拉慢早晨"
+    ]);
+    add("9/6",{time:"06:30",end:"06:50",title:"起床＋藏服妆造准备",kind:"提醒",note:"妆造店需提前预约06:50开妆；前一晚洗头并确认服装、发型、摄影师、底片数量和交通是否包含"});
+    add("9/6",{time:"06:50",end:"08:05",title:"藏服妆造 · 松赞林寺主题",kind:"妆造",route:"优先选择独克宗古城内、能早开妆且可按时归还服装的店",booking:"预约时明确08:05必须出发、11:20结束拍摄；专业跟拍与仅租服装价格分开确认",note:"选择适合寺院背景的端庄藏服；避免过于夸张、暴露或妨碍行动的造型"});
+    add("9/6",{time:"08:05",end:"08:30",title:"独克宗 → 拉姆央措湖/小街子",kind:"交通",route:"正规网约车先到湖边全景机位，再前往松赞林景区入口",note:"让摄影师提前确认车辆、门票和集合位置，不骑电动车赶行程"});
+    add("9/6",{time:"08:30",end:"09:20",title:"松赞林寺全景妆造拍摄",kind:"拍摄",route:"拉姆央措湖南岸或小街子安全机位，拍寺院群、湖面倒影和藏服全身照",note:"这里才最适合把松赞林寺作为完整背景；不进入牧场、不翻围栏、不打扰当地居民",platform:"松赞林寺近期攻略",link:"https://my.trip.com/moments/detail/shangri-la-106-144823029"});
+    add("9/6",{time:"09:20",end:"11:20",title:"松赞林寺参观＋外景补拍",kind:"景点",route:"景区车 → 百步阶梯 → 外部红墙、转经筒与建筑细节",booking:"近期公开参考07:00开放、18:00停止入场；票价和观光车以购票页为准",note:"殿内禁止拍照，入殿脱帽、摘墨镜、不踩门槛；高原台阶慢走，拍摄不能影响僧侣和礼佛者"});
+    add("9/6",{time:"11:20",end:"12:00",title:"松赞林寺 → 独克宗",kind:"交通",route:"乘景区车出园后网约车返回妆造店/民宿",note:"到店先归还服装或约定延时归还，不临时增加纳帕海项目"});
+    add("9/6",{time:"12:00",end:"14:10",title:"卸妆、午餐、取行李与退房",kind:"其他",note:"吃热食并整理行李；14:10前全部结束，下午只保留车站缓冲"});
+    add("9/6",{time:"14:10",end:"15:30",title:"高铁前留白",kind:"休息",route:"民宿或古城北门附近咖啡馆",note:"不再跑景点；15:30取齐行李，15:45准时去香格里拉站"});
+
+    dayGuides["9/4"]={title:"普达措 → 牧卡 → 野鹿子",tips:["普达措15:00离开后直接去纳帕海，不先回酒店","牧卡18:00结束、野鹿子19:00结束，因此先牧卡再野鹿子","第二天02:30集合，晚饭后21:30前回房休息"],source:"https://www.diqing.gov.cn/xwzx/dqyw/202607/20260714_242806.html"};
+    dayGuides["9/5"]={title:"梅里一日小团 → 回房补觉",tips:["02:30集合、页面计划约14:45回独克宗；实际会受雨季路况和交通管制影响","团内纳帕海只停约30分钟，9月4日已单独安排牧卡和野鹿子","回酒店后强制补觉，晚间只吃饭和短走，不追加妆造或远途"],source:"https://d.qunar.com/x9t1HY"};
+    dayGuides["9/6"]={title:"松赞林寺妆造 → C88",tips:["06:50开妆，08:30先在拉姆央措湖/小街子拍寺院完整背景","09:20后进景区参观和补拍，殿内不拍照并尊重宗教礼仪","12:00回古城卸妆、午餐和退房；15:45出发赶17:25的C88"],source:"https://my.trip.com/moments/detail/shangri-la-106-144823029"};
+    savedItems=savedItems.filter(function(x){return x.id!=="wish-meili-optional"});
+    [
+      {id:"wish-qunar-meili-daytour",platform:"其他",title:"梅里雪山一日小团 · 8人内",link:"https://d.qunar.com/x9t1HY",note:"计划9月5日参加：02:30集合、约14:45返独克宗。下单前确认道路、替换景点、取消规则和司导休息。"},
+      {id:"wish-ctrip-muka",platform:"攻略",title:"牧卡 · 纳帕海草原庄园",link:"https://hotels.ctrip.com/hotels/130840896.html",note:"已安排9月4日16:00；咖啡厅公开参考09:00–18:00，非住客进入规则提前确认。"},
+      {id:"wish-trip-yeluzi",platform:"攻略",title:"野鹿子 · 纳帕海咖啡披萨",link:"https://sg.trip.com/moments/poi-city-153462171/",note:"已安排9月4日17:10；解放村夏学组30号，公开参考10:00–19:00。"},
+      {id:"wish-songzanlin-makeup",platform:"攻略",title:"松赞林寺 · 藏服妆造拍摄路线",link:"https://my.trip.com/moments/detail/shangri-la-106-144823029",note:"已安排9月6日上午：先拉姆央措湖/小街子拍完整寺院背景，再入景区参观和外景补拍。"}
+    ].forEach(function(item){if(!savedItems.some(function(x){return x.id===item.id||x.link===item.link}))savedItems.push(item)});
+    state.days.forEach(function(d){d.events.sort(function(a,b){return String(a.time).localeCompare(String(b.time))})});
+    localStorage.setItem(rev,"1");save();
+  })();
+
   function renderSavedItem(item){
     var p=item.platform||platformOf(item);
     var cl=p==="美团"?"mt":p==="小红书"?"xhs":p==="抖音"?"dy":"";

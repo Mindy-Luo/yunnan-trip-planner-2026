@@ -99,6 +99,11 @@ test("ships the urgent local-first upgrades without cloud dependencies", async (
   assert.match(upgradeJs, /use-baizu-dafei-wase-dinner-v1/);
   assert.match(upgradeJs, /大叔写真咖啡旅拍 · 二楼雪山窗景/);
   assert.match(upgradeJs, /add-shuhe-uncle-photo-cafe-v1/);
+  assert.match(upgradeJs, /梅里雪山一日小团 · 雾浓顶\/飞来寺/);
+  assert.match(upgradeJs, /牧卡 · 草原庄园与小动物/);
+  assert.match(upgradeJs, /野鹿子 · 纳帕海落日咖啡/);
+  assert.match(upgradeJs, /松赞林寺全景妆造拍摄/);
+  assert.match(upgradeJs, /shangri-meili-makeup-napahai-v1/);
   assert.match(upgradeJs, /普达措国家公园 · 留足一整段/);
   assert.match(upgradeJs, /松赞林寺 · 上午慢游/);
   assert.match(upgradeJs, /梅里日照金山 · 只作为整日替换方案/);
